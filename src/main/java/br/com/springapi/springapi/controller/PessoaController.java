@@ -43,6 +43,19 @@ public class PessoaController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND)
     }
 
+    @RequestMapping(value="/pessoa/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<Pessoa> Put(@PathVariable(value="id") long id,@Valid @Request Pessoa newPessoa){
+        Optional<Pessoa> oldPessoa = pessoaRepository.findById(id);
+        if(oldPessoa.isPresent()){
+            Pessoa pessoa = oldPessoa.get();
+            pessoa.setNome(newPessoa.getNome());
+            pessoaRepository.save(pessoa);
+            return new ResponseEntity<Pessoa>(pessoa, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     
     
 }
