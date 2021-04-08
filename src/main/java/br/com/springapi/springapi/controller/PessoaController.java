@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public class PessoaController {
         if(pessoa.isPresent()) 
             return new ResponseEntity<Pessoa>(pessoa.get(),HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value="/pessoa/{id}",method = RequestMethod.PUT)
@@ -57,7 +56,7 @@ public class PessoaController {
     }
 
     @RequestMapping(value="/pessoa/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<Pessoa> Delete(@PathVariable(values="id") long id){
+    public ResponseEntity<Pessoa> Delete(@PathVariable(value="id") long id){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
         if(pessoa.isPresent()){
             pessoaRepository.delete(pessoa.get());
